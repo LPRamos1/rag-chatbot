@@ -1,0 +1,20 @@
+{
+  "python.terminal.activateEnvironment": true,
+
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic",
+
+  "python.analysis.extraPaths": ["./"],
+
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+
+  },
+
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/db": true
+  }
+}
