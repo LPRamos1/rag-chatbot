@@ -25,7 +25,7 @@ This project focuses on building a simple but modular RAG pipeline, separating r
 
 ---
 
-##⚙️ System Design
+## ⚙️ System Design
 
 The system follows a basic RAG pipeline:
 
