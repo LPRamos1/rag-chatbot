@@ -96,7 +96,7 @@ This is a learning-oriented implementation of a RAG system, focused on understan
 
 ---
 
-##🚧 Limitations
+## 🚧 Limitations
 
 - Uses a small static dataset
 - No chunking or document ingestion pipeline
