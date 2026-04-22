@@ -1,16 +1,18 @@
 # 🔎 RAG Chatbot with ChromaDB + Groq
 
-A Python project built to learn how Retrieval-Augmented Generation (RAG) systems work by combining vector search (ChromaDB) with LLM responses (Groq API).
+A Python project exploring Retrieval-Augmented Generation (RAG) by combining vector search with LLM-based response generation.
+
+This project focuses on building a simple but modular RAG pipeline, separating retrieval, context construction, and generation.
 
 ---
 
 ## 🚀 Features
 
-- Store text data in a vector database (ChromaDB)
-- Perform semantic search using embeddings
-- Retrieve most relevant context based on user queries
-- Use retrieved context to enhance LLM responses (RAG pipeline)
-- Interactive terminal chatbot interface
+- Semantic search using ChromaDB
+- Context retrieval based on similarity search
+- Prompt construction with context injection
+- Streaming responses using Groq API (Llama 3)
+- Modular architecture (retrieval vs generation)
 
 ---
 
@@ -19,20 +21,25 @@ A Python project built to learn how Retrieval-Augmented Generation (RAG) systems
 - Python 3.11
 - ChromaDB
 - Groq API (LLM - Llama 3)
-- dotenv (environment variables)
+- python-dotenv
 
 ---
 
-## ⚙️ How it works
+##⚙️ System Design
 
-The system stores a small dataset of support-related knowledge in a vector database.
+The system follows a basic RAG pipeline:
 
-When the user sends a query:
+User Query
+→ Vector Search (ChromaDB)
+→ Top-K Retrieval
+→ Context Aggregation
+→ LLM Prompt Injection
+→ Response Generation
 
-1. The query is converted into embeddings internally by ChromaDB
-2. The most relevant documents are retrieved using semantic similarity
-3. The retrieved context is passed to a Large Language Model (Groq API)
-4. The model generates a response grounded in the retrieved context
+Design choices
+Uses top-k retrieval (k=3) to balance relevance and context size
+Context is concatenated into a single prompt block for simplicity
+System prompt enforces grounded answers (no hallucination)
 
 **Pipeline:**
 
@@ -42,12 +49,10 @@ Input → Vector Search → Context Retrieval → LLM Generation → Response
 
 ## 📦 Project Structure
 
-```bash
-main.py → RAG orchestration (retrieval + chat loop)
-vector_store.py → ChromaDB setup, insert, and query logic
-chatbot.py → Groq API integration and streaming response
-data/sample_data.py → Small knowledge base for testing
-```
+- main.py # Orchestrates RAG pipeline and CLI loop
+- vector_store.py # ChromaDB setup and retrieval logic
+- chatbot.py # LLM API integration (streaming)
+- data/ # Sample dataset
 
 ---
 
@@ -57,7 +62,7 @@ data/sample_data.py → Small knowledge base for testing
 git clone https://github.com/your-username/rag-chatbot.git
 cd rag-chatbot
 
-pip install chromadb groq python-dotenv
+pip install -r requirements.txt
 
 python main.py
 ```
@@ -66,9 +71,6 @@ python main.py
 
 ## 💬 Example Interaction
 
-You: what does blue light mean on modem
-Chatbot: A flashing blue light indicates that the device is searching for a Wi-Fi connection.
-
 You: how long does battery last
 Chatbot: The battery provides approximately 12 hours of life under normal operating conditions.
 
@@ -76,32 +78,35 @@ Chatbot: The battery provides approximately 12 hours of life under normal operat
 
 ## 🎯 Purpose
 
-This project was built as part of my learning process in AI engineering fundamentals, focusing on:
+This is a learning-oriented implementation of a RAG system, focused on understanding
 
-- Vector databases and semantic search
-- Retrieval-Augmented Generation (RAG) systems
-- LLM integration using APIs
-- Prompt engineering with context injection
-
-It is a learning implementation of a basic RAG pipeline, not a production system.
-
----
-
-## 📚 What I learned
-
-- How RAG systems work in practice
-- How vector databases retrieve semantically similar data
-- How to integrate LLM APIs (Groq) with external context
-- How prompt design affects LLM behavior
+- How retrieval impacts LLM responses
+- How to structure prompts with external context
 - Basic architecture of AI applications
 
 ---
 
+## 📚 Key Learnings
+
+- Practical implementation of RAG pipelines
+- Trade-offs in context size vs relevance
+- Integration of vector search with LLM APIs
+- How prompt design affects LLM behavior
+- Prompt design for grounded responses
+
+---
+
+##🚧 Limitations
+
+- Uses a small static dataset
+- No chunking or document ingestion pipeline
+- No ranking optimization beyond similarity search
+- CLI interface only
+
+
 ## 🚀 Next step
 
-his project is a foundation for future improvements such as:
-
-- Chunking larger documents (PDF-based RAG)
-- Better retrieval ranking strategies
-- UI interface (Streamlit or web app)
-- Using external datasets instead of small static data
+- CAdd document chunking (PDF / larger datasets)
+- Improve retrieval strategies
+- Add simple web interface
+- External data ingestion pipeline
